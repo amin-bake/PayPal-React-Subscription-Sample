@@ -37,7 +37,9 @@ const generateAccessToken = async () => {
         Authorization: `Basic ${auth}`,
       },
     });
-
+    if (!response.ok) {
+      throw new Error(`Failed to generate Access Token: ${response.statusText}`);
+    }
     const data = await response.json();
     return data.access_token;
   } catch (error) {
@@ -77,6 +79,7 @@ const handleResponse = async (response) => {
     return {
       jsonResponse,
       httpStatusCode: response.status,
+      httpStatusCode: response.status
     };
   } catch (err) {
     const errorMessage = await response.text();
@@ -88,6 +91,8 @@ app.post("/api/paypal/create-subscription", async (req, res) => {
   try {
     const { jsonResponse, httpStatusCode } = await createSubscription();
     res.status(httpStatusCode).json(jsonResponse);
+    console.log(jsonResponse);
+    console.log(jsonResponse)
   } catch (error) {
     console.error("Failed to create order:", error);
     res.status(500).json({ error: "Failed to create order." });
@@ -96,7 +101,7 @@ app.post("/api/paypal/create-subscription", async (req, res) => {
 
 // serve index.html
 app.get("/", (req, res) => {
-  res.sendFile(path.resolve("./client/checkout.html"));
+  res.sendFile(path.resolve("./client/index.html"));
 });
 
 app.listen(PORT, () => {

@@ -8,7 +8,7 @@ function Message({ content }) {
 
 function App() {
   const initialOptions = {
-    "client-id": "PAYPAL_CLIENT_ID",
+    "client-id": "ASmh1c7E-yDvAoulrcZeCI5JpXPmWLQoX5aOSsfGeJl3gLoRogPkVMusLPyA-97vgwsT-Rh0Tdb9WuCG",
     "enable-funding": "paylater,venmo",
     "data-sdk-integration-source": "integrationbuilder_sc",
     "vault": "true",
@@ -22,9 +22,11 @@ function App() {
       <PayPalScriptProvider options={initialOptions}>
         <PayPalButtons
           style={{
-            shape: "rect",
-            //color:'blue' change the default color of the buttons
-            layout: "vertical", //default value. Can be changed to horizontal
+            shape: "pill",
+            color:'blue' ,//change the default color of the buttons
+            layout: "vertical" //default value. Can be changed to horizontal
+            // label: 'subscribe',
+            // tagline: 'true'
           }}
           createSubscription={async () => {
             try {
@@ -68,6 +70,7 @@ function App() {
             if (data.orderID) {
               setMessage(
                 `You have successfully subscribed to the plan. Your subscription id is: ${data.subscriptionID}`,
+                console.log()
               );
             } else {
               setMessage(
